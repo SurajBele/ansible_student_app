@@ -1,0 +1,4 @@
+---
+# vars file for backend
+TOMCAT_DIR: apache-tomcat-8.5.98
+URL: https://dlcdn.apache.org/tomcat/tomcat-8/v8.5.98/bin/apache-tomcat-8.5.98.tar.gz

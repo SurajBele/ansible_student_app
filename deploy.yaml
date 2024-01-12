@@ -1,0 +1,5 @@
+- name: final_deploy
+  hosts: all
+  roles:
+    - front
+    - backend

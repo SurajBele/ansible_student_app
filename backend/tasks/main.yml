@@ -1,0 +1,35 @@
+---
+# tasks file for backend
+- name: install java
+  package:
+    name: java-11-openjdk
+    state: latest
+- name: download tomcat:8.5
+  get_url:
+    url: "{{ URL }}"
+    dest: /opt/
+- name: extarct tomcat
+  unarchive:
+    src: /opt/{{ TOMCAT_DIR }}.tar.gz
+    dest: /opt/
+    remote_src: yes
+- name: studentapp package
+  get_url:
+    url: https://s3-us-west-2.amazonaws.com/studentapi-cit/student.war
+    dest: /opt/{{ TOMCAT_DIR }}/webapps/
+- name: copy_tomcat-init
+  copy:
+    src: tomcat-init
+    dest: /etc/init.d/tomcatd
+    mode: 755
+- name: copy context.xml
+  copy:
+    src: context.xml
+    dest: /opt/{{ TOMCAT_DIR }}/conf/context.xml
+- name: connector
+  get_url:
+    url: https://s3-us-west-2.amazonaws.com/studentapi-cit/mysql-connector.jar
+    dest: /opt/{{ TOMCAT_DIR }}/lib/
+  notify:
+    - starting tomcat
+  

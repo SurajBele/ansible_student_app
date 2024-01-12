@@ -1,0 +1,21 @@
+---
+# tasks file for front
+- name: install httpd
+  package:
+    name: "{{ PKG }}"
+    state: latest
+  when: ansible_os_family == "RedHat"
+- name: copy module
+  copy: 
+    src: index.html
+    dest: /var/www/html/index.html
+- name: permissive selinux
+  selinux:
+    policy: targeted
+    state: permissive
+- name: proxy server
+  copy:
+    src: proxy.conf
+    dest: /etc/httpd/conf.d/proxy.conf
+  notify:
+    - starting httpd

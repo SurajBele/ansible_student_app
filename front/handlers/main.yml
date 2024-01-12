@@ -1,0 +1,7 @@
+---
+# handlers file for front
+- name: starting httpd
+  systemd:
+    name: httpd
+    state: reloaded
+    enabled: true
